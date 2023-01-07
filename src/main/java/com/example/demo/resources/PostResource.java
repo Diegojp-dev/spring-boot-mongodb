@@ -19,7 +19,7 @@ import com.example.demo.domain.Post;
 import com.example.demo.services.PostService;
 
 @RestController
-@RequestMapping
+@RequestMapping(value = "/posts")
 public class PostResource {
 
 	@Autowired
