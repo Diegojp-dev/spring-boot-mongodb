@@ -32,10 +32,11 @@ public class UserService {
 		return repository.save(obj);
 	}
 	
-	public User fromDTO(UserDTO userDTO) {
-	User user = new User(userDTO.getId(),userDTO.getName(),userDTO.getEmail());
-	user = repository.save(user);
-	 return user;
+	public User update(User obj) {
+		User newObj = repository.findById(obj.getId()).get();
+		updateData(newObj,obj);
+		repository.save(newObj);
+		return newObj;
 	}
 	
 	public void deleteById(String id) {
@@ -43,4 +44,15 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
+	public User fromDTO(UserDTO userDTO) {
+	User user = new User(userDTO.getId(),userDTO.getName(),userDTO.getEmail());
+	user = repository.save(user);
+	 return user;
+	}
+	
+	private void updateData(User newObj, User obj) {
+		newObj.setId(obj.getId());
+		newObj.setEmail(obj.getEmail());
+		newObj.setName(obj.getName());
+	}
 }
