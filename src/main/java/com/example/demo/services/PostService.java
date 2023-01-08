@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,16 @@ public class PostService {
 	  Post post = repository.findById(id).orElseThrow(()-> new ObjectNotFoundException(" object not found"));
 	  return post;
 	}
+	
+	public List<Post> findByTitle(String text){
+		return repository.findByTitle(text);
+	}
+	
+	public List<Post>fullSearch(String text, Date minDate, Date maxDate){
+		maxDate = new Date(maxDate.getTime() + 24 *60 * 60 * 100);
+		return repository.fullSearch(text, minDate, maxDate);
+	}
+	
 	
 	public Post insert(Post post) {
 		post = repository.save(post);
